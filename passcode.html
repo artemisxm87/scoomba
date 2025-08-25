@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Passcode Gate</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body { 
+      font-family: system-ui, Arial, sans-serif; 
+      display:flex; 
+      min-height:100vh; 
+      align-items:center; 
+      justify-content:center; 
+      background:#000;      /* black background */
+      color:#eee;           /* light text */
+    }
+    form { 
+      padding:1.25rem; 
+      border:1px solid #333; 
+      border-radius:12px; 
+      background:#111;      /* dark gray form */
+    }
+    .row { 
+      display:flex; 
+      gap:.5rem; 
+    }
+    input[type="password"]{ 
+      padding:.6rem .8rem; 
+      font-size:1rem; 
+      background:#222;      /* dark input */
+      border:1px solid #333; 
+      border-radius:6px; 
+      color:#eee; 
+    }
+    input::placeholder { 
+      color:#777; 
+    }
+    button{ 
+      padding:.6rem .9rem; 
+      font-size:1rem; 
+      cursor:pointer; 
+      border:none; 
+      border-radius:6px; 
+      background:#444; 
+      color:#eee; 
+      transition: background 0.2s; 
+    }
+    button:hover{ 
+      background:#666; 
+    }
+    .error{ 
+      color:#f55; 
+      margin-top:.5rem; 
+      min-height:1.2em; 
+    }
+  </style>
+</head>
+<body>
+
+  <form id="gate" autocomplete="off">
+    <div class="row">
+      <input id="code" type="password" placeholder="Enter passcode" required />
+      <button type="submit">Enter</button>
+    </div>
+    <div id="err" class="error"></div>
+  </form>
+
+  <script>
+    // CHANGE THESE:
+    const PASSCODE = "1234";                 // your passcode
+    const DESTINATION = "welcome.html";      // where to send users
+
+    const form = document.getElementById("gate");
+    const input = document.getElementById("code");
+    const err = document.getElementById("err");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (input.value === PASSCODE) {
+        // redirect
+        window.location.href = DESTINATION;
+      } else {
+        err.textContent = "Incorrect passcode.";
+        input.value = "";
+        input.focus();
+      }
+    });
+  </script>
+</body>
+</html>
